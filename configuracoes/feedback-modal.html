@@ -1,0 +1,22 @@
+<div class="modal">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Feedback</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="toggleModalFeedback()">Fechar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="false" class="has-header text-center">
+
+    <div class="list">
+      <div class="item">
+        <label class="item-input item-stacked-label">
+          <textarea ng-model="mv.mensagem" placeholder="Envie sua sugestão para melhorarmos o aplicativo." rows="10"></textarea>
+        </label>
+      </div>
+      <div class="item item-button-right">
+        &nbsp;
+        <button class="button" ng-click="enviar()">Enviar</button>
+      </div>
+    </div>
+  </ion-content>
+</div>

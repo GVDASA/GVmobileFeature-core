@@ -1,0 +1,14 @@
+<ion-view view-title="Perfil">
+	<ion-nav-bar></ion-nav-bar>
+	<ion-content class="has-header">
+		<gvm-messages name="connectionStatus"></gvm-messages>
+		<gvm-messages></gvm-messages>
+		<ul class="list">
+			<li class="item item-checkbox" ng-click="loadModulo(modulo)" ng-repeat="modulo in modulos">
+				<label class="checkbox">
+					<input type="radio" name="modulo" ng-checked="modulo.nome == atual.nome"></label>
+				{{modulo.nome.toUpperCase()}}
+			</li>
+		</ul>
+	</ion-content>
+</ion-view>

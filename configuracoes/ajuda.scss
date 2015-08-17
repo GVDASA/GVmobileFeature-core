@@ -1,0 +1,51 @@
+@import "themeFunctions";
+
+$primary: ${theme.primary};
+$accent: ${theme.accent};
+
+.view-ajuda {
+	ol {
+	  display: block;
+	  list-style-type: decimal;
+	  -webkit-margin-before: 1em;
+	  -webkit-margin-after: 1em;
+	  -webkit-margin-start: 0px;
+	  -webkit-margin-end: 0px;
+	  -webkit-padding-start: 40px;
+	}
+
+	li {
+	  display: list-item;
+	  text-align: -webkit-match-parent;
+	}
+
+	.highlighted {
+		background-color: #FFFF73;
+
+	}
+
+	.toc-item {
+        color: primary-color("P500");
+        text-decoration: underline;
+        padding: 10px 0;
+    }
+  
+    li {
+        //color: @header-background-color;
+        color: primary-color("P500");
+        font-weight: bold;
+
+        p {
+        	font-weight: normal;
+        }
+    }
+
+    h2, h5 {
+        //color: @header-background-color;
+        color: primary-color("P500");
+    }
+
+    p {
+        color:#777;
+    }
+}

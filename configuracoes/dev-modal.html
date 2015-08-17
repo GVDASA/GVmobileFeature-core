@@ -1,0 +1,33 @@
+<div class="modal">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Login do desenvolvedor</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="toggleModalDevMode()">Fechar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="false" class="has-header text-center">
+
+
+
+    <div class="list">
+      <div class="spacer" style="height: 10px;"></div>
+      <label class="item item-input">
+        <i class="icon ion-person placeholder-icon"></i>
+        <input type="text" ng-model="mv.developerLogin" autocorrect="off" autocapitalize="on" placeholder="Seu login de desenvolvedor"
+        required>
+      </label>
+      <div class="spacer" style="height: 10px;"></div>
+      <label class="item item-input">
+        <i class="icon ion-locked placeholder-icon"></i>
+        <input type="password" ng-model="mv.developerPassword" placeholder="Sua senha aqui" required>
+      </label>
+
+      <div class="item item-button-right">
+        &nbsp;
+        <button class="button" ng-click="devLogin()">Logar</button>
+      </div>
+    </div>
+
+
+  </ion-content>
+</div>
