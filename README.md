@@ -1,3 +1,3 @@
-# GVmobile Feature: core
+# GVmobile: Feature core
 
 Core API do GVmobile
