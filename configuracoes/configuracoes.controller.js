@@ -1,6 +1,6 @@
 angular.module('core.configuracoes')
 
-    .controller("ConfiguracoesCtrl", function ($scope, $http, $timeout, $ionicModal, User, configService, APP_CONFIG, PushConfig, Notificacoes, gvmMessagesService, AppModulos, dialogo, localStorage) {
+    .controller("ConfiguracoesCtrl", function ($scope, $http, $timeout, $ionicModal, User, configService, APP_CONFIG, PushConfig, Notificacoes, gvmMessagesService, AppModulos, dialogo, localStorage, gvPermissionService) {
 
         var me = angular.extend($scope, {
             //feedbackEmail: APP_CONFIG.feedbackEmail,
@@ -81,8 +81,9 @@ angular.module('core.configuracoes')
                             dialogo.alert("Logoff! Feche o aplicativo e abra novamente!");
                         }
                     }, "Desenvolvedor", ["Sim", "Não"]);
+                } else {
+                    toggleModalDevMode();
                 }
-                toggleModalDevMode();
             }
         }
 
@@ -137,26 +138,30 @@ angular.module('core.configuracoes')
         };
 
         function sendFeedback(text) {
-            var contextData = AppModulos.getContextData();
-            var user = User.getCurrent();
-            // var localModules = window.localStorage.getItem('modules');
-            // var modulos = JSON.parse(localModules || []).map(function(i) {
-            //     return {
-            //         name: i.name,
-            //         version: i.version,
-            //         hash: i.hash
-            //     };
-            // });
-            var data = {
-                usuarioLogadoId: user.codigoPessoa,
-                usuarioLogadoNome: user.nome,
-                // modulos: modulos,
-                mensagemFeedback: text,
-                appVersion: APP_CONFIG.version,
-                urlApiCliente: APP_CONFIG.urlApiCliente,
-                contextData: contextData
-            };
-            return $http.post(APP_CONFIG.urlApiPortal + "api/app/feedback", data);
+
+            return gvPermissionService.getContextFeatures().then(function (ctxFeatures) {
+                var contextData = AppModulos.getContextData();
+                delete contextData.aluno.foto;
+                contextData.perfil.data.alunos.map(function (a) {
+                    delete a.foto;
+                    return a;
+                });
+                var user = User.getCurrent();
+                
+                // features utilizadas pelo usuario 
+                contextData.allowedFeatures = localStorage.get("allowedFeatures");
+                contextData.contextFeatures = ctxFeatures;
+
+                var data = {
+                    usuarioLogadoId: user.codigoPessoa,
+                    usuarioLogadoNome: user.nome,
+                    mensagemFeedback: text,
+                    appVersion: APP_CONFIG.version,
+                    urlApiCliente: APP_CONFIG.urlApiCliente,
+                    contextData: contextData
+                };
+                return $http.post(APP_CONFIG.urlApiPortal + "api/app/feedback", data);
+            });
         }
 
         function destroy() {

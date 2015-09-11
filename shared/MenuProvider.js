@@ -12,6 +12,14 @@ angular.module('core.MenuProvider', [
         Menu.resetMenu();
     });
 })
+
+/**
+* @ngdoc service
+* @name core.service:MenuProvider
+*
+* @description
+* Configura o serviço de menu.
+*/
 .provider("Menu", function MenuProvider($stateProvider, AppFeaturesProvider, FEATURES_MAP) {
     var menulist = [];
     return {
@@ -20,6 +28,21 @@ angular.module('core.MenuProvider', [
     };
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+	* @ngdoc method
+	* @methodOf core.service:MenuProvider
+	* @name addMenuItem
+	* @description Adiciona um item ao menu.
+	* @param {object} value Objeto de configuração do item do menu.
+    * @param {string} value.name Nome que será exibido no item de menu.
+    * @param {string} value.module Nome do módulo a qual este item pertence.
+    * @param {string} value.url Url referente ao item de menu.
+    * @param {string} value.icon Ícone que será exibido no menu.
+    * @param {string} value.feature Nome da feature atrelada a este item de menu.
+    * @param {boolean=} value.desktop Indica se irá ser exibido no desktop ou não.
+    * @param {number=} value.order Ordem do item de menu no menu.
+    * @param {object} value.cfg Configuração que será passada ao objeto $state do ui.router.
+	*/
     function addMenuItem(value) {
         var args = angular.isArray(value) ? value : [value];
         angular.forEach(args, function(menuItem) {
@@ -32,7 +55,15 @@ angular.module('core.MenuProvider', [
         });
     };
 
+    /**
+    * @ngdoc service
+    * @name core.service:MenuService
+    *
+    * @description
+    * Realiza o gerenciamento do menu do aplicativo.
+    */
     function MenuService($timeout, $gvmUtil, $rootScope, $q, localStorage, dialogo, gvPermissionService) {
+        
         var userDefinedMenus;
         return {
             get: getMenus,
@@ -40,13 +71,23 @@ angular.module('core.MenuProvider', [
             resetMenu: resetMenu
         };
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-
+        /**
+        * @ngdoc method
+        * @methodOf core.service:MenuService
+        * @name resetMenu
+        * @description Volta o menu ao estado original.
+        */
         function resetMenu() {
             userDefinedMenus = null;
             localStorage.del('userMenus');
         };
 
+        /**
+        * @ngdoc method
+        * @methodOf core.service:MenuService
+        * @name getMenus
+        * @description Carrega os menus que o usuário possui permissão.
+        */
         function getMenus() {
             var deferred = $q.defer();
 
@@ -76,6 +117,14 @@ angular.module('core.MenuProvider', [
             return deferred.promise;
         };
 
+        /**
+        * @ngdoc method
+        * @methodOf core.service:MenuService
+        * @name changeDesktopOption
+        * @description Altera o item do menu para que seja exibido no desktop ou não.
+        * @param {object} menu Menu.
+        * @param {boolean} shouldAdd Indica se deve ou não adicionar o item ao desktop.
+        */
         function changeDesktopOption(menu, shouldAdd) {
             if (menu.desktop && shouldAdd) {
                 dialogo.alert('Este menu já existe em seu desktop.');
@@ -97,6 +146,12 @@ angular.module('core.MenuProvider', [
             }
         };
 
+        /**
+        * @ngdoc method
+        * @methodOf core.service:MenuService
+        * @name saveOnStorage
+        * @description Salva as configurações do menu no storage do dispositivo.
+        */
         function saveOnStorage() {
             // Update user definitions on storage;
             // somente os campos {name:string,desktop:bool} são salvos

@@ -13,19 +13,20 @@ function GvPermissionService($rootScope, $q, $http, APP_CONFIG, FEATURES_MAP, Ap
 
         var context = AppModulos.getContextData();
         var features;
+
         var data = {
             idUsuarioLogado: context.perfil.data.codigoPessoa,
             euccp: {
-                empresa: context.empresa,
-                unidade: context.unidade,
-                curso: context.curso,
-                ciclo: context.ciclo,
-                papeis: context.papeis
+                empresa: !!context.curso ? context.curso.codEmpresa : (!!context.unidade ? context.unidade.codEmpresa : ""),
+                unidade: !!context.curso ? context.curso.codUnidade : (!!context.unidade ? context.unidade.codUnidade : ""),
+                curso: !!context.curso ? context.curso.id : (!!context.turma ? context.turma.codCurso : ""),
+                ciclo: !!context.curso ? context.curso.codCiclo : (!!context.turma ? context.turma.codCiclo : ""),
+                papeis: !!context.aluno ? context.aluno.papeisLogado : (!!context.turma ? context.turma.papeisLogado : [])
             }
         };
 
         $http.post("~/api/RegrasPermissoesFeature/Dispositivo", data, {
-            ignoreInterceptor: true
+            ignoreInterceptor: false
         })
             .error(function (err) {
                 console.log(err);

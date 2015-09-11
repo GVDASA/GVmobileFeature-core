@@ -6,6 +6,7 @@
     "scripts": [
         "../libs/jquery/dist/jquery.js",
         "../libs/ionic/release/js/ionic.bundle.js",
+        "../libs/angular-i18n/angular-locale_pt-br.js",
         "../libs/angular-resource/angular-resource.js",
         "../libs/ng-bearer-auth/ngbearerauth.js",
         "../libs/gv-angular-filter/dist/gv-angular-filter.js",
@@ -58,6 +59,7 @@
         "ng-bearer-auth",
         "angular-resource",
         "mobiscroll",
-        "gv-angular-filter"
+        "gv-angular-filter",
+        "angular-i18n"
     ]
 }

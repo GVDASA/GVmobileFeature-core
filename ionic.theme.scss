@@ -14,7 +14,7 @@ $use_colored_icons: {theme.use_colored_icons};
     background-color: primary-color("P500");
     background-image: linear-gradient(0deg, primary-color("P500"), primary-color("P500") 50%, transparent 50%);
     color: contrast-color(primary-color("P500"));
-    .title { 
+    .title, .button-clear { 
       color: contrast-color(primary-color("P500"));
     }
   }

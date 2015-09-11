@@ -8,15 +8,11 @@ angular.module('core')
 
 		if (this.useNotification()) {
 			try {
-				window.plugin.notification.local.add({
+				cordova.plugins.notification.local.schedule({
 					id: startDate.getTime(),
-					date: startDate,
-					message: notes,
 					title: title + " " + location,
-					json: JSON.stringify({
-						teste: 1
-					}),
-					autoCancel: true
+					text: notes,
+					at: startDate
 				});
 				success();
 			} catch (e) {
@@ -31,8 +27,8 @@ angular.module('core')
 	};
 
 	this.cancelAllEvents = function(scope) {
-		if (!!window.plugin && this.useNotification()) {
-			window.plugin.notification.local.cancelAll(function() {}, scope);
+		if (!!cordova.plugins.notification && this.useNotification()) {
+			cordova.plugins.notification.local.cancelAll(function() {}, scope);
 		}
 	};
 

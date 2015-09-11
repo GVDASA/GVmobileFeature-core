@@ -44,9 +44,12 @@ function NotificacoesProvider() {
                 return m.nome
             });
             var typesObj = {};
+            var allowedModules = AppFeatures.getAllowedFeatures();
             Object.keys(notificationTypes).map(function(typeName) {
                 var type = notificationTypes[typeName];
-                if ((!type.modulo || modulosDoUsuario.indexOf(type.modulo) !== -1) && (!module || type.modulo === module)) {
+                if ((!type.modulo || modulosDoUsuario.indexOf(type.modulo) !== -1)
+                    && (!module || type.modulo === module)
+                    && (allowedModules.indexOf(type.feature) !== -1)) {
                     return typesObj[typeName] = type;
                 };
                 return type;
@@ -156,7 +159,7 @@ function NotificacoesProvider() {
                     var res = AppFeatures.getAllowedFeatures().filter(function(userAllowedModule) {
                         return userAllowedModule == item.feature;
                     }).length > 0;
-                    console.log(item);
+                    //console.log(item);
                     return res;
                 });
                 setSeen();

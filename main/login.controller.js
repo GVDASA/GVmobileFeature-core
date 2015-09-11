@@ -27,7 +27,7 @@ angular.module('core.main')
                 }, function(data) {
                     if (data === undefined) {
                         $auth.removeToken();
-                        return 'Não existem alunos ligados a este perfil.';
+                        return $q.reject('Acesso não liberado para o ano/semestre corrente.');
                     } else {
                         return $q.reject(readErrorFromServer(data));
                     }
