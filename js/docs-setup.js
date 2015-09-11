@@ -54,8 +54,17 @@ NG_DOCS={
       "shortName": "MenuProvider",
       "type": "service",
       "moduleName": "core",
-      "shortDescription": "TODO addMenuItem",
-      "keywords": "addmenuitem api core service todo"
+      "shortDescription": "Configura o serviço de menu.",
+      "keywords": "addmenuitem adiciona ao api configura core de item menu method servi service um"
+    },
+    {
+      "section": "api",
+      "id": "core.service:MenuService",
+      "shortName": "MenuService",
+      "type": "service",
+      "moduleName": "core",
+      "shortDescription": "Realiza o gerenciamento do menu do aplicativo.",
+      "keywords": "adicionar altera ao api aplicativo carrega changedesktopoption configura core desktop deve dispositivo estado exibido gerenciamento getmenus indica item menu menus method original os ou para permiss possui realiza resetmenu salva saveonstorage se seja service shouldadd storage usu volta"
     },
     {
       "section": "api",
@@ -87,7 +96,7 @@ NG_DOCS={
     "navTemplate": false,
     "navContent": "",
     "navTemplateData": {},
-    "image": "https://gvmobile.azurewebsites.net/preview/assets/logo.png",
+    "image": "img/logo.png",
     "imageLink": "https://gvmobile.azurewebsites.net/preview/",
     "loadDefaults": {
       "angular": true,
