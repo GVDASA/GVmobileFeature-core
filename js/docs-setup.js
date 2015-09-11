@@ -55,7 +55,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "core",
       "shortDescription": "Configura o serviço de menu.",
-      "keywords": "addmenuitem adiciona ao api configura core de item menu method servi service um"
+      "keywords": "$state addmenuitem adiciona ao api atrelada cfg configura core da de desktop este exibido feature icon indica ir item menu method module nome objeto ordem order ou passada pertence qual referente router se ser servi service ui um url"
     },
     {
       "section": "api",
