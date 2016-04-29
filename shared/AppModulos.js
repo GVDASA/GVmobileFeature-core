@@ -129,10 +129,10 @@ angular.module('core')
                         });
                         return !appModuloItem.modulo || modulos.length > 0;
                     });
-                    return allowedModules.filter(function(moduleItem){
-                       return userData.modulos.filter(function(userModule){
-                           return userModule.nome == moduleItem.perfil;
-                       }).length > 0; 
+                    return allowedModules.filter(function (moduleItem) {
+                        return userData.modulos.filter(function (userModule) {
+                            return userModule.nome == moduleItem.perfil;
+                        }).length > 0;
                     });
                 });
             };

@@ -304,24 +304,30 @@ label.item.has-error {
         color: #444444;
     }
     .nota {
-        width: 70px;
-        height: 70px;
-        padding: 20px 17px;
+        width: 100px;
+        height: 100px;
+        padding: 35px 10px 20px 10px;
         border-radius: 50%;
         margin: 10px auto;
         color: white;
-        background-color: #FF2626;
+        background-color: #ddd;
         &.aprovado {
             background-color: #00B259;
         }
+        &.reprovado {
+          background-color: #FF2626;          
+        }
         h3 {
-          color: white;
+          color: #444;
         }
     }
     .situacao {
-        color: #FF2626;
+        color: #666;
         &.aprovado {
             color: #00B259;
+        }
+        &.reprovado {
+          background-color: #FF2626;          
         }
     }
 }

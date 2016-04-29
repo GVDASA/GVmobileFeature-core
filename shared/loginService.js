@@ -55,13 +55,19 @@ angular.module('core')
                 return $q.when(releaseOAuthTokens());
             })
             .finally(function() {
+                
+                // Remove rastros que causam problemas alternando entre contas
+                localStorage.removeItem('turmaSelecionado');
+                localStorage.removeItem('alunoSelecionado');
+                localStorage.removeItem('unidadeSelecionado');
+                localStorage.removeItem('moduloSelecionado');
+                localStorage.removeItem('cursoSelecionado');
+
                 User.clearUserData();
                 $rootScope.notices = {};
                 navigationService.go("/login");
                 $rootScope.$broadcast('LOGOUT');
-                window.gaPlugin && window.gaPlugin.trackEvent(
-                    function() {},
-                    function() {},
+                window.analytics && window.analytics.trackEvent(
                     "Acesso",
                     "Logoff",
                     "Efetua logoff através do menu",

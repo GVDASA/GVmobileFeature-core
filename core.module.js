@@ -20,17 +20,17 @@ angular.module('core', [
     //'core.mobiscroll',
     //'core.gauge'
 ])
-// registra a feature
-    .config(function (AppFeaturesProvider) {
+    // registra a feature
+    .config(function(AppFeaturesProvider) {
         AppFeaturesProvider.addAppFeature('core');
     })
-// No WP as urls de arquivos salvas são do genero '//view.html' o que não faz parte da mesma origem.
-// Portanto deve-se habilitar o uso destas URL's;
-    .config(function ($sceDelegateProvider, $compileProvider) {
+    // No WP as urls de arquivos salvas são do genero '//view.html' o que não faz parte da mesma origem.
+    // Portanto deve-se habilitar o uso destas URL's;
+    .config(function($sceDelegateProvider, $compileProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
-        // Allow same origin resource loads.
+            // Allow same origin resource loads.
             'self',
-        // Allow loading from our assets domain.  Notice the difference between * and **.
+            // Allow loading from our assets domain.  Notice the difference between * and **.
             '**',
         ]);
 
@@ -38,8 +38,8 @@ angular.module('core', [
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|ghttps?|ms-appx|x-wmapp0)|\/?app\//);
     })
 
-// Configura comportamento do IONIC FRAMEWORK
-    .config(function ($ionicConfigProvider) {
+    // Configura comportamento do IONIC FRAMEWORK
+    .config(function($ionicConfigProvider) {
         $ionicConfigProvider.views.maxCache(0);
         $ionicConfigProvider.templates.maxPrefetch(0);
         $ionicConfigProvider.backButton.text('');
@@ -53,28 +53,40 @@ angular.module('core', [
         }
     })
 
-    .run(function ($ionicPlatform) {
-        $ionicPlatform.ready(function () {
+    .run(function($ionicPlatform, APP_CONFIG, $rootScope, $state) {
+        $ionicPlatform.ready(function() {
             if (!ionic.Platform.isAndroid()) {
                 ionic.Platform.fullScreen(true, false);
             }
 
             window.navigator && window.navigator.splashscreen && window.navigator.splashscreen.hide();
+
+            // GOOGLE ANALYTICS PLUGIN INIT
+            if (window.analytics) {
+                window.analytics.startTrackerWithId(APP_CONFIG.googleAnalyticsID);
+                $rootScope.$on('$stateChangeSuccess', function(event, toRoute) {
+                    var viewName = toRoute.name;
+                    //var viewName = location.hash.replace('#/main', '').replace('#', '')
+                    toRoute && window.analytics && window.analytics.trackView(viewName);
+                });
+                console.log('Google analytics invoked!');
+            }
+
             console.log('Run: core');
         });
     })
 
-    .run(function ($http, resumeService, configuracoesDeCliente, User, $auth, AppModulos) {
+    .run(function($http, resumeService, configuracoesDeCliente, User, $auth, AppModulos) {
         // Ao iniciar a aplicação deve obter a configuração da URL da API do Cliente  do localstorage caso ela tenha sido obtida em uma execução anterior do aplicativo.
         configuracoesDeCliente.loadSavedUrl();
 
 
         // Carrega dados referentes ao usuário
-        resumeService.register(function () {
+        resumeService.register(function() {
             if ($auth.isAuthenticated()) {
-                User.getUserData(true).then(function (userData) {
+                User.getUserData(true).then(function(userData) {
                     if (userData.changed) {
-                        AppModulos.selecionarModulo().then(function () {
+                        AppModulos.selecionarModulo().then(function() {
                             AppModulos.init();
                         });
                     } else {
@@ -85,11 +97,11 @@ angular.module('core', [
         });
 
         // Esta parte que irá enviar para a tela de login caso o usuário esteja deslogado.
-        resumeService.register(function () {
-            configuracoesDeCliente.getUrlApiCliente().then(function (data) {
+        resumeService.register(function() {
+            configuracoesDeCliente.getUrlApiCliente().then(function(data) {
                 $http.get('~/api/version', {
                     ignoreInterceptor: true
-                }).then(function () { }, function () {
+                }).then(function() { }, function() {
                     // // Caso erro, efetuar logout imediatamente!
                     // if (arguments[0] == "CREDENTIALS_NEEDED") {
                     //     $rootScope.logout();
@@ -100,9 +112,9 @@ angular.module('core', [
 
     })
 
-    .run(function ($rootScope, AppModulos, sidemenuService, ajudaService) {
+    .run(function($rootScope, AppModulos, sidemenuService, ajudaService) {
         var perfilMenuItem = {
-            action: function () {
+            action: function() {
                 AppModulos.selecionarModulo(true)
             },
             descricao: 'Mudar perfil',
@@ -111,19 +123,19 @@ angular.module('core', [
         };
 
         function addProfileMenuItem() {
-            AppModulos.getModulos().then(function (modulos) {
+            AppModulos.getModulos().then(function(modulos) {
                 if (modulos && modulos.length > 1) {
                     sidemenuService.removeProfileMenus(perfilMenuItem);
                     sidemenuService.addProfileMenus(perfilMenuItem);
                 }
             });
         }
-        $rootScope.$on('PERFIL_SELECIONADO', function () {
+        $rootScope.$on('PERFIL_SELECIONADO', function() {
             addProfileMenuItem();
         });
         addProfileMenuItem();
 
-        $rootScope.$on('LOGOUT', function () {
+        $rootScope.$on('LOGOUT', function() {
             sidemenuService.removeProfileMenus(perfilMenuItem);
         });
 
@@ -154,9 +166,9 @@ angular.module('core', [
             }]);
     })
 
-// Configura controle de acesso
-    .run(function ($rootScope, resumeService, controleAcesso) {
-        $rootScope.$on('event_afterLogin', function (event, userData) {
+    // Configura controle de acesso
+    .run(function($rootScope, resumeService, controleAcesso) {
+        $rootScope.$on('event_afterLogin', function(event, userData) {
             if (userData.codigoPessoa) {
                 controleAcesso.logarAcesso();
             };
@@ -164,22 +176,34 @@ angular.module('core', [
         resumeService.register(controleAcesso.logarAcesso, controleAcesso);
     })
 
-// Configura controle de notificações
-    .run(function ($rootScope, resumeService, Notificacoes) {
+    // Configura controle de notificações
+    .run(function($rootScope, resumeService, Notificacoes) {
 
 
-        $rootScope.$on('LOGOUT', function () {
+        $rootScope.$on('LOGOUT', function() {
             Notificacoes.stop();
         });
 
-        $rootScope.$on('event_afterLogin', function () {
+        $rootScope.$on('event_afterLogin', function() {
             Notificacoes.run();
         });
 
-        resumeService.register(function () {
+        resumeService.register(function() {
             Notificacoes.stop();
             Notificacoes.run();
         });
 
         Notificacoes.run();
+    })
+    .config(function(NotificacoesProvider){
+        NotificacoesProvider.addType([{
+        
+		tipo: "aviso",
+		//modulo: "aluno",
+		feature: "core",
+		desc: "Avisos",
+		urlBase: "/main/aviso/",
+		classe: "ion-pin",
+		params: null
+        }]);
     });

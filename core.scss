@@ -18,3 +18,8 @@ $ionicons-font-path: "./fonts" !default;
 
 // Include all of Ionic
 @import "../libs/ionic/scss/ionic";
+
+.no-desktop-menu {
+    padding: 30px 7px;
+    text-align: center;
+}

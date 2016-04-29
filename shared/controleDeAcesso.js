@@ -9,6 +9,9 @@ angular.module('core')
 			if (loginService.isLoggedIn()) {
 				User.getUserData().then(function(dadosUsuario) {
 					
+                    // Google Analytics Track User ID
+                    dadosUsuario && dadosUsuario.codigoPessoa && window.analytics && window.analytics.setUserId(dadosUsuario.codigoPessoa);
+                    
 					// Se não esta logado ainda, precisa retornar algo!
 					if (!dadosUsuario) dadosUsuario = {
 						codigoPessoa: 0,

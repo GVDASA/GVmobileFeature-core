@@ -54,9 +54,7 @@ angular.module('core.main')
 		});
 		Notificacoes.setRead();
 
-		window.gaPlugin && window.gaPlugin.trackEvent(
-			function() {},
-			function() {},
+		window.analytics && window.analytics.trackEvent(
 			"Funcionalidade",
 			"Click",
 			"Seta todas notificações como lidas",

@@ -16,7 +16,7 @@ angular.module('core.httpLoadingInterceptor', [
 
     var begin = function(config) {
         //console.log('begin','config.url', config.url);
-        if (config.url && /\.html$/.test(config.url)) {
+        if (config.url && /\.html$/.test(config.url) || config.ignoreAuthInterceptor) {
             //console.log('begin','config.url', config.url);
             config.ignoreInterceptor = true;
         };

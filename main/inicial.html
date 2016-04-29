@@ -2,6 +2,7 @@
     <ion-content class="padding colored-icon">
         <gvm-messages name="connectionStatus"></gvm-messages>
         <gvm-messages></gvm-messages>
+        <div class="no-desktop-menu" ng-if="(newmenus | filter:currentModuleMenuInDesktop).length == 0">Ops! Não há atalhos em sua área inicial. Acesse seu menu para adicionar novos atalhos.</div>
         <ul class="tile-list">
             <li class="tile-item {{menu.icon}}" ng-repeat="menu in newmenus | filter:currentModuleMenuInDesktop" ng-click="go(menu.url)" on-hold="dButton(menu, false)">
                 <div class="font3 padding-top" ng-bind="menu.name"></div>

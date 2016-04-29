@@ -19,8 +19,8 @@ function GvPermissionService($rootScope, $q, $http, APP_CONFIG, FEATURES_MAP, Ap
             euccp: {
                 empresa: !!context.curso ? context.curso.codEmpresa : (!!context.unidade ? context.unidade.codEmpresa : ""),
                 unidade: !!context.curso ? context.curso.codUnidade : (!!context.unidade ? context.unidade.codUnidade : ""),
-                curso: !!context.curso ? context.curso.id : (!!context.turma ? context.turma.codCurso : ""),
-                ciclo: !!context.curso ? context.curso.codCiclo : (!!context.turma ? context.turma.codCiclo : ""),
+                curso: !!context.curso ? context.curso.id : (!!context.turma ? context.turma.codigoCurso : ""),
+                ciclo: !!context.curso ? context.curso.codCiclo : (!!context.turma ? context.turma.codigoCiclo : ""),
                 papeis: !!context.aluno ? context.aluno.papeisLogado : (!!context.turma ? context.turma.papeisLogado : [])
             }
         };

@@ -1,6 +1,6 @@
 {
-    "id": "2DB7F526-7FDD-4709-AE5C-6AF4DFF4855C",
-    "cowner": "9E623A00-A5F7-4DF8-8D50-1E449D419B26",
+    "id": "B837CD23-38AD-45F7-AA4A-272B601784F6",
+    "cowner": "98480DF7-5FBF-46F8-A4BC-899BA654FB83",
     "mode": 1,
     "alias": "core",
     "scripts": [
@@ -8,7 +8,7 @@
         "../libs/ionic/release/js/ionic.bundle.js",
         "../libs/angular-i18n/angular-locale_pt-br.js",
         "../libs/angular-resource/angular-resource.js",
-        "../libs/ng-bearer-auth/ngbearerauth.js",
+        "../libs/ng-bearer-auth/dist/ng-bearer-auth.js",
         "../libs/gv-angular-filter/dist/gv-angular-filter.js",
         "../libs/mobiscroll/js/mobiscroll.core.js",
         "../libs/mobiscroll/js/mobiscroll.frame.js",

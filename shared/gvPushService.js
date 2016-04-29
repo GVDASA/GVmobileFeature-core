@@ -81,7 +81,9 @@ function GvPushService($window, $rootScope, $timeout, $q, APP_CONFIG) {
                 console.log("registrando deviceId via plugin [android]!");
                 var androidConfig = {
                     "senderID": APP_CONFIG.googleSenderID,
-                    "ecb": "onPushNotificationReceived"
+                    // "ecb": "onPushNotificationReceived"
+                    "icon": "pushicon",
+                    // "iconColor": ""
                 };
                 // $cordovaPush.register(androidConfig);
                 pushInitConfig.android = androidConfig;
@@ -92,7 +94,7 @@ function GvPushService($window, $rootScope, $timeout, $q, APP_CONFIG) {
                     "badge": "true",
                     "sound": "true",
                     "alert": "true",
-                    "ecb": "onPushNotificationReceived"
+                    // "ecb": "onPushNotificationReceived"
                 };
                 pushInitConfig.ios = iosConfig;
             }
@@ -101,6 +103,12 @@ function GvPushService($window, $rootScope, $timeout, $q, APP_CONFIG) {
                 setCurrentPushInfo(data.registrationId);
             });
             me.pushService.on('notification', function(notification) {
+                // notification.message,
+                // notification.title,
+                // notification.count,
+                // notification.sound,
+                // notification.image,
+                // notification.additionalData
                 $window.onPushNotificationReceived(notification);
             });
         },

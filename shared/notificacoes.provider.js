@@ -18,7 +18,7 @@ function NotificacoesProvider() {
         });
     };
 
-    function NotificacoesService($q, $http, $interval, AppFeatures, loginService, User) {
+    function NotificacoesService($q, $http, $interval, AppFeatures, loginService, User, localStorage) {
         var mappingFunctions = [],
             stats = {},
             runInterval = 15000,
@@ -47,11 +47,15 @@ function NotificacoesProvider() {
             var allowedModules = AppFeatures.getAllowedFeatures();
             Object.keys(notificationTypes).map(function(typeName) {
                 var type = notificationTypes[typeName];
+                var devId = localStorage.get('devId');
+                if(!!devId){
+                    return typesObj[typeName] = type;
+                }
                 if ((!type.modulo || modulosDoUsuario.indexOf(type.modulo) !== -1)
                     && (!module || type.modulo === module)
                     && (allowedModules.indexOf(type.feature) !== -1)) {
                     return typesObj[typeName] = type;
-                };
+                }; 
                 return type;
             });
             return typesObj;
@@ -152,13 +156,12 @@ function NotificacoesProvider() {
             });
             promise.then(function(response) {
                 // Apply map functions
-                
                 angular.forEach(response.data.items || [], getMapFunction());
                 // debugger;
                 response.data.items = response.data.items.filter(function(item) {
                     var res = AppFeatures.getAllowedFeatures().filter(function(userAllowedModule) {
                         return userAllowedModule == item.feature;
-                    }).length > 0;
+                    }).length > 0 || localStorage.get('devId');
                     //console.log(item);
                     return res;
                 });

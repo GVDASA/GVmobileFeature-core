@@ -12,6 +12,7 @@ angular.module('core.main', [])
 	.state('main', {
 		url: '/main',
 		abstract: true,
+		cache: false,
 		templateUrl: 'core/main/mainpage.html',
 		controller: 'MainCtrl'
 	})

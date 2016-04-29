@@ -44,21 +44,6 @@ angular.module('core')
 					return perfisObj[m.nome];
 				});
 
-				/* ------------------------------------- */
-				/* temporario para atender ao professor */
-				pessoa.modulos.map(function (m) {
-					if (m.nome == "professor") {
-						m.data.unidades.map(function (u) {
-							u.turmas.map(function (t) {
-								t.codCiclo = 1;
-								t.codCurso = 3;
-								t.papeisLogado = [28]
-							});
-						});
-					}
-				});
-				/* ------------------------------------- */
-
 				if (!pessoa || pessoa.modulos.length == 0 || allowedModules.length == 0) {
 					//Se não tem informação 
 					userData = null;

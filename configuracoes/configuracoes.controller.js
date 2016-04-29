@@ -44,9 +44,7 @@ angular.module('core.configuracoes')
             me.tiposPush = tipos;
         }, function (data) {
             gvmMessagesService.info('Problemas ao efetuar a consulta.');
-            window.gaPlugin && window.gaPlugin.trackEvent(
-                function () { },
-                function () { },
+           window.analytics && window.analytics.trackEvent(
                 "Conteúdo",
                 "Sem resultado",
                 "Sem resultados na exibição das configurações de push.",
